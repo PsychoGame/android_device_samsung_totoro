@@ -1,4 +1,5 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
 # If you're using 4.2/Jelly Bean, use full_base.mk instead of full.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full.mk)
 
@@ -11,10 +12,21 @@ $(call inherit-product, vendor/cyanogen/products/common_full_no_themes.mk)
 # Include GSM stuff
 $(call inherit-product, vendor/cyanogen/products/gsm.mk)
 
-# Add LDPI assets, in addition to MDPI
+# Add LDPI assets
 PRODUCT_LOCALES := ldpi
 
 DEVICE_PACKAGE_OVERLAYS := device/samsung/totoro/overlay
+
+# Live wallpaper packages and Themes
+PRODUCT_PACKAGES := \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    VisualizationWallpapers \
+    librs_jni
+
+# Publish that we support the live wallpaper feature.
+PRODUCT_COPY_FILES := \
+packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
 PRODUCT_PACKAGES += \
     libOmxCore \
