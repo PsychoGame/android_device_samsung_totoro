@@ -12,7 +12,10 @@ $(call inherit-product, vendor/cyanogen/products/common_full_no_themes.mk)
 $(call inherit-product, vendor/cyanogen/products/gsm.mk)
 
 # Add LDPI assets, in addition to MDPI
-PRODUCT_LOCALES := ldpi
+PRODUCT_LOCALES += ldpi mdpi
+
+# Extra overlay for LDPI
+PRODUCT_PACKAGE_OVERLAYS += vendor/cyanogen/overlay/ldpi
 
 DEVICE_PACKAGE_OVERLAYS := device/samsung/totoro/overlay
 
@@ -66,7 +69,7 @@ PRODUCT_COPY_FILES += \
 
 ## Kernel Modules
 PRODUCT_COPY_FILES += \
-    device/samsung/totoro/prebuilt/brcm_headsetsw.ko:system/lib/modules/brcm_headsetsw.ko \
+    device/samsung/totoro/prebuilt/bcm_headsetsw.ko:system/lib/modules/brm_headsetsw.ko \
     device/samsung/totoro/prebuilt/brcm_switch.ko:system/lib/modules/brcm_switch.ko \
     device/samsung/totoro/prebuilt/dhd.ko:system/lib/modules/dhd.ko \
     device/samsung/totoro/prebuilt/gememalloc.ko:system/lib/modules/gememalloc.ko \
@@ -89,6 +92,16 @@ PRODUCT_COPY_FILES += \
 ## Wifi mac adress fix
 PRODUCT_COPY_FILES += \
     device/samsung/totoro/prebuilt/get_macaddrs:system/bin/get_macaddrs
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number
+PRODUCT_PROPERTY_OVERRIDES := \
+    ro.opengles.version=131072
+
+PRODUCT_PROPERTY_OVERRIDES += \
+       wifi.interface=eth0 \
+       wifi.supplicant_scan_interval=15 \
+       dalvik.vm.heapsize=32m
 
 # Copy bootanimation
 PRODUCT_COPY_FILES +=  \

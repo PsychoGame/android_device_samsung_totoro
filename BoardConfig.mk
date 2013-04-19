@@ -1,4 +1,9 @@
-USE_CAMERA_STUB := true
+USE_CAMERA_STUB := false
+ifeq ($(USE_CAMERA_STUB),false)
+BOARD_CAMERA_LIBRARIES := libcamera
+BOARD_USE_CAF_LIBCAMERA := true
+BOARD_CAMERA_USE_GETBUFFERINFO :=true
+endif
 
 # The generic product target doesn't have any hardware-specific pieces.
 TARGET_NO_BOOTLOADER := true
@@ -7,6 +12,7 @@ TARGET_NO_RADIOIMAGE := true
 # Board and phone specific information
 TARGET_BOARD_PLATFORM := bcm21553
 TARGET_ARCH_VARIANT := armv6-vfp
+ARCH_ARM_HAVE_TLS_REGISTER := false
 TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
 TARGET_BOOTLOADER_BOARD_NAME := totoro
@@ -36,6 +42,9 @@ BOARD_UMS_LUNFILE := "/sys/devices/lm-2/gadget/lun0/file"
 
 # Graphics
 BOARD_EGL_CFG := device/samsung/totoro/prebuilt/egl.cfg
+BOARD_USES_HGL := true
+BOARD_USES_OVERLAY := true
+USE_OPENGL_RENDERER := true
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 TARGET_ELECTRONBEAM_FRAMES := 20
 
@@ -58,6 +67,7 @@ BOARD_MOBILEDATA_INTERFACE_NAME:= "pdp0"
 
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
+BUILD_WITH_ALSA_UTILS := true
 BOARD_PREBUILT_LIBAUDIO := true
 
 BOARD_HAVE_BLUETOOTH := true
